@@ -1,6 +1,8 @@
 ## Reddit App (WORK IN PROGRESS)
 A recreation of Reddits using their public API. Browse through your front page and subreddits. This is a work in progress, more features will be added.
 
+Try the app [here](https://jwong421.github.io/reddit-app)
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
