@@ -1,0 +1,15 @@
+.Comments {
+    display: flex;
+    flex-flow: column;
+    background-color: rgb(62, 62, 62);
+    color: rgb(170, 170, 170);
+    border-radius: 20px;
+    height: 100%;
+    margin-bottom: 5px;
+    font-weight: bold;
+    padding: 25px;
+}
+
+.Comments a {
+    color: lightblue;
+}

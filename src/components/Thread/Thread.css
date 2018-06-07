@@ -1,0 +1,108 @@
+.Thread {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    background-color: rgb(62, 62, 62);
+    border-radius: 20px;
+    height: 100%;
+    margin-bottom: 5px;
+}
+
+.Score {
+    width: 5%;
+    font-weight: bold;
+    color: rgb(170, 170, 170);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+}
+
+.Thread img {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+}
+
+.Info {
+    width: 70%;
+    margin-left: 20px;
+    display: flex;
+    flex-flow: column;
+}
+
+.Info h2 {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.Info a {
+    color: rgb(0, 167, 125);
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+.Info a:hover {
+    color: rgb(0, 194, 145);
+}
+
+.Info a:visited {
+    color: rgb(0, 167, 125);
+}
+
+.Info p {
+    color:rgb(170, 170, 170);
+    margin-top: 0;
+}
+
+.Info span {
+    color: rgb(0, 167, 125);
+    font-weight: bold;
+}
+
+.Comments {
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+}
+
+.CommentInfo {
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.MainContent {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 50px;
+    color: rgb(170, 170, 170);
+}
+
+.MainContent p {
+    font-size: 18px;
+    line-height: 2em;
+}
+
+.Iframe {
+    height: 1000px;
+}
+
+.postInfo {
+    display: flex;
+}
+
+.GildedInfo {
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.Gilded {
+    height: 15px;
+    width: 15px;
+    background-color: rgb(255, 233, 106);
+    border-radius: 50%;
+    display: inline-block;
+}

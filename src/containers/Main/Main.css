@@ -1,0 +1,62 @@
+.Content {
+    display: flex;
+    justify-content: space-around;
+}
+
+.Subreddits {
+    height: 100%;
+    width: 13%;
+    background-color: rgb(62, 62, 62);
+    border-radius: 20px;
+    color: rgb(170, 170, 170);
+    list-style: none;
+    padding: 25px 25px 0 25px;
+    box-sizing: border-box;
+}
+
+.Subreddits h3 {
+    margin: 0 auto 20px auto;
+    font-size: 22px;
+}
+
+.Frontpage {
+    height: 100%;
+    width: 83%;
+    box-sizing: border-box;
+}
+
+.Auth {
+    box-sizing: border-box;
+    width: 40%;
+    height: 100%;
+    padding: 100px;
+    background-color: rgb(62, 62, 62);
+    text-align: center;
+    margin: 200px auto;
+    border-radius: 20px;
+    color: white;
+}
+
+.Auth img {
+    width: 125px;
+    height: 125px;
+}
+
+.Auth h2 {
+    margin: 50px 0;
+}
+
+.Auth a {
+    text-decoration: none;
+    color: white;
+}
+
+.Auth h3:hover,
+.Auth a:hover {
+    color: gray;
+    cursor: pointer;
+}
+
+.Auth a:visited {
+    color: white;
+}

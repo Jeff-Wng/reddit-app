@@ -1,0 +1,18 @@
+.Subreddits{
+    text-decoration: none;
+    color: rgb(170, 170, 170);
+}
+
+.Subreddits:hover {
+    color: rgb(225, 225, 225);
+}
+
+.Subreddits:visited {
+    color: rgb(170, 170, 170);
+}
+
+.Subreddits li {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+

@@ -1,0 +1,81 @@
+import React, {Component} from 'react';
+import Navbar from '../../components/Navbar/Navbar';
+import Frontpage from '../../components/Frontpage/Frontpage';
+import Subreddits from '../../components/Subreddits/Subreddits';
+import Loader from '../../components/Loader/Loader';
+import Nopreview from '../../img/nopreview.png';
+import {connect} from 'react-redux';
+import classes from '../Main/Main.css';
+import * as actions from '../../store/Actions/index';
+
+class SubredditPage extends Component {
+    setUrl = (event) => {
+        this.props.setSubUrl(event);
+        this.props.setArticleUrl(event);
+    }
+
+    render() {
+        let frontPage = this.props.frontPage.map(data => {
+            return <Frontpage 
+                key={data.id}
+                id={data.id}
+                title={data.title}
+                author={data.author}
+                sourceURL={data.url}
+                img={data.thumbnail === "" || data.thumbnail === "spoiler" || data.thumbnail === 'default' || data.thumbnail === 'image' ||data.thumbnail === 'self' ? Nopreview : data.thumbnail}
+                subreddit={data.subreddit}
+                score={data.score}
+                comments={data.num_comments}
+                domain={data.domain}
+                gilded={data.gilded}
+                postHint={data.post_hint}
+                setSubUrl={this.props.setSubUrl}
+                setUrl={this.setUrl}
+                isRedditDomain={data.is_reddit_media_domain} />
+        })
+
+        let subreddits = this.props.subreddits.map(subs => {
+            return <Subreddits 
+                key={subs}
+                name={subs}
+                setSubUrl={this.props.setSubUrl} />
+        })
+        return (
+            <div>
+                <Navbar 
+                    username={sessionStorage.getItem('username')} 
+                    sortFrontpage={this.props.sortFrontPage}
+                    setSubUrl={this.props.setSubUrl} />
+                <div className={classes.Content}>
+                    <ul className={classes.Subreddits}>
+                        {!this.props.subLoading ? <h3>My Subreddits</h3>: null}
+                        {subreddits}
+                    </ul>
+                    <ul className={classes.Frontpage}>
+                        {this.props.isLoading ? <Loader className={classes.Loader} /> : null}
+                        {frontPage}
+                    </ul>
+                </div>
+            </div>
+        )
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+        frontPage: state.main.frontPage,
+        subreddits: state.main.subreddits,
+        isLoading: state.main.isLoading,
+        subLoading: state.main.subLoading
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        sortFrontPage: (event) => dispatch(actions.sortFrontPage(event)),
+        setSubUrl: (event) => dispatch(actions.setSubUrl(event)),
+        setArticleUrl: (event) => dispatch(actions.setArticleUrl(event))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SubredditPage);
