@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import Frontpage from '../../components/Frontpage/Frontpage';
-import Subreddits from '../../components/Subreddits/Subreddits';
 import Loader from '../../components/Loader/Loader';
 import Nopreview from '../../img/nopreview.png';
 import {connect} from 'react-redux';
@@ -34,23 +33,10 @@ class SubredditPage extends Component {
                 isRedditDomain={data.is_reddit_media_domain} />
         })
 
-        let subreddits = this.props.subreddits.map(subs => {
-            return <Subreddits 
-                key={subs}
-                name={subs}
-                setSubUrl={this.props.setSubUrl} />
-        })
         return (
             <div>
-                <Navbar 
-                    username={sessionStorage.getItem('username')} 
-                    sortFrontpage={this.props.sortFrontPage}
-                    setSubUrl={this.props.setSubUrl} />
+                <Navbar />
                 <div className={classes.Content}>
-                    <ul className={classes.Subreddits}>
-                        {!this.props.subLoading ? <h3>My Subreddits</h3>: null}
-                        {subreddits}
-                    </ul>
                     <ul className={classes.Frontpage}>
                         {this.props.isLoading ? <Loader className={classes.Loader} /> : null}
                         {frontPage}

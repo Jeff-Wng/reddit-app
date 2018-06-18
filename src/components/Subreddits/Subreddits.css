@@ -14,5 +14,12 @@
 .Subreddits li {
     margin-bottom: 20px;
     font-weight: bold;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s linear;
+}
+
+.ShowSubs li {
+    opacity: 1;
 }
 

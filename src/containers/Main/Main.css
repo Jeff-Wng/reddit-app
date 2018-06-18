@@ -1,27 +1,12 @@
 .Content {
     display: flex;
     justify-content: space-around;
-}
-
-.Subreddits {
-    height: 100%;
-    width: 13%;
-    background-color: rgb(62, 62, 62);
-    border-radius: 20px;
-    color: rgb(170, 170, 170);
-    list-style: none;
-    padding: 25px 25px 0 25px;
-    box-sizing: border-box;
-}
-
-.Subreddits h3 {
-    margin: 0 auto 20px auto;
-    font-size: 22px;
+    width: 100%;
 }
 
 .Frontpage {
     height: 100%;
-    width: 83%;
+    width: 85%;
     box-sizing: border-box;
 }
 
@@ -59,4 +44,10 @@
 
 .Auth a:visited {
     color: white;
+}
+
+@media screen and (max-width: 1500px) {
+    .Frontpage {
+        width: 95%;
+    }
 }

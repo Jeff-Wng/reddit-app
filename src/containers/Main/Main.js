@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Frontpage from '../../components/Frontpage/Frontpage';
-import Subreddits from '../../components/Subreddits/Subreddits';
 import Navbar from '../../components/Navbar/Navbar';
 import classes from './Main.css';
 import Nopreview from '../../img/nopreview.png';
@@ -21,7 +20,6 @@ class Main extends Component {
                 this.props.getUserInfo();
             }
         },1000)
-        console.log('URL' + process.env.PUBLIC_URL);
     }
 
     setUrl = (event) => {
@@ -48,27 +46,13 @@ class Main extends Component {
                setUrl={this.setUrl}
                isRedditDomain={data.is_reddit_media_domain} />
         })
-
-        let subreddits = this.props.subreddits.map(subs => {
-            return <Subreddits 
-                key={subs}
-                name={subs}
-                setSubUrl={this.props.setSubUrl} />
-        })
-
+        
         let content = null;
         if(this.props.hasToken) {
             content = 
                 <div>
-                    <Navbar 
-                        username={sessionStorage.getItem('username')} 
-                        sortFrontpage={this.props.sortFrontPage}
-                        setSubUrl={this.props.setSubUrl} />
+                    <Navbar />
                     <div className={classes.Content}>
-                        <ul className={classes.Subreddits}>
-                            {!this.props.subLoading ? <h3>My Subreddits</h3>: null}
-                            {subreddits}
-                        </ul>
                         <ul className={classes.Frontpage}>
                             {this.props.isLoading ? <Loader className={classes.Loader} /> : null}
                             {frontPage}

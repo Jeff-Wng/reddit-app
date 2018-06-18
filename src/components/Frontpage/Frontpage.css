@@ -9,7 +9,7 @@
 }
 
 .Score {
-    width: 5%;
+    width: 10%;
     font-weight: bold;
     color: rgb(170, 170, 170);
     display: flex;
@@ -25,7 +25,7 @@
 }
 
 .Info {
-    width: 70%;
+    width: 90%;
     margin-left: 20px;
     display: flex;
     flex-flow: column;

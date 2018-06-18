@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Navbar from '../../components/Navbar/Navbar';
-import Subreddits from '../../components/Subreddits/Subreddits';
 import Thread from '../../components/Thread/Thread';
 import Comments from '../../components/Comments/Comments';
 import {connect} from 'react-redux';
@@ -15,13 +14,6 @@ class Article extends Component {
     }
 
     render() {
-        let subreddits = this.props.subreddits.map(subs => {
-            return <Subreddits 
-                key={subs}
-                name={subs}
-                setSubUrl={this.props.setSubUrl} />
-        })
-
         let thread = this.props.content.map(data => {
             return <Thread 
                 key={data.title}
@@ -57,14 +49,8 @@ class Article extends Component {
 
         return (
             <div>
-                <Navbar
-                    username={sessionStorage.getItem('username')} 
-                    setSubUrl={this.props.setSubUrl} />
+                <Navbar />
                 <div className={classes.Content}>
-                    <ul className={classes.Subreddits}>
-                        {!this.props.subLoading ? <h3>My Subreddits</h3>: null}
-                        {subreddits}
-                    </ul>
                     <div className={classes.Post}>
                         <div>
                             {this.props.isLoading ? <Loader className={classes.Loader} /> : null}
@@ -82,8 +68,6 @@ class Article extends Component {
 
 const mapStateToProps = state => {
     return {
-        subreddits: state.main.subreddits,
-        subLoading: state.main.subLoading,
         subUrl: state.main.subUrl,
         articleUrl: state.main.articleUrl,
         content: state.article.content,

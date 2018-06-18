@@ -5,7 +5,6 @@ const initialState = {
     subreddits: [],
     frontPage: [],
     isLoading: false,
-    subLoading: false,
     subUrl:  ' ',
     articleUrl: ' ',
     hasToken: false
@@ -34,7 +33,6 @@ const frontPageSuccess = (state, action) => {
 
 const subSuccess = (state, action) => {
     return updateObject(state, {
-        subLoading: false,
         subreddits: action.subreddits
     })
 }
