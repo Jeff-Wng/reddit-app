@@ -38,7 +38,7 @@ class Navbar extends Component {
                             {subreddits}
                         </ul>
                     </div>
-                    <p>{sessionStorage.getItem('username')}</p>
+                    <p>{sessionStorage.getItem('username')} ({this.props.linkKarma})</p>
                 </div>
                 <div className={classes.RightContent}>
                     <Link to='/'><img src={logo} onClick={this.props.setSubUrl} id=' ' alt='Reddit logo'/></Link>
@@ -56,7 +56,8 @@ class Navbar extends Component {
 
 const mapStateToProps = state => {
     return {
-        subreddits: state.main.subreddits
+        subreddits: state.main.subreddits,
+        linkKarma: state.main.linkKarma
     }
 }
 

@@ -52,6 +52,42 @@ export const tokenSuccess = () => {
     }
 }
 
+export const setKarma = (commentKarma, linkKarma) => {
+    return {
+        type: actionTypes.SET_KARMA,
+        commentKarma: commentKarma,
+        linkKarma: linkKarma
+    }
+}
+
+export const setUserComments = (userComments) => {
+    return {
+        type: actionTypes.SET_USER_COMMENTS,
+        userComments: userComments
+    }
+}
+
+export const setUserSubmitted = (userSubmitted) => {
+    return {
+        type: actionTypes.SET_USER_SUBMITTED,
+        userSubmitted: userSubmitted
+    }
+}
+
+export const setUserUpvoted = (userUpvoted) => {
+    return {
+        type: actionTypes.SET_USER_UPVOTED,
+        userUpvoted: userUpvoted
+    }
+}
+
+export const setUserDownvoted = (userDownvoted) => {
+    return {
+        type: actionTypes.SET_USER_DOWNVOTED,
+        userDownvoted: userDownvoted
+    }
+}
+
 export const getAccessToken = () => {
     return dispatch => {
         let code = dispatch(getUrlParams('code'));
@@ -106,6 +142,68 @@ export const getUserInfo = () => {
             dispatch(getSubreddits());
         }).catch(error => {
             console.log(error);
+        })
+        dispatch(setUserInfo());
+    }
+}
+
+export const setUserInfo = () => {
+    return dispatch => {
+        $.get({
+            url: 'https://oauth.reddit.com/user/Lennus123/about',
+            beforeSend: xhr => {
+                xhr.setRequestHeader('Authorization', 'bearer ' + sessionStorage.getItem('accessToken'))
+            }
+        }).then(response => {
+            dispatch(setKarma(response.data.comment_karma, response.data.link_karma));
+            $.get({
+                url: 'https://oauth.reddit.com/user/Lennus123/overview',
+                beforeSend: xhr => {
+                    xhr.setRequestHeader('Authorization', 'bearer ' + sessionStorage.getItem('accessToken'))
+                }
+            }).then(response => {
+                let userComments = [];
+                for(let key in response.data.children) {
+                    userComments.push(response.data.children[key]);
+                }
+                dispatch(setUserComments(userComments));
+                $.get({
+                    url: 'https://oauth.reddit.com/user/Lennus123/submitted', 
+                    beforeSend: xhr => {
+                        xhr.setRequestHeader('Authorization', 'bearer ' + sessionStorage.getItem('accessToken'))
+                    }
+                }).then(response => {
+                    let userSubmitted = [];
+                    for(let key in response.data.children) {
+                        userSubmitted.push(response.data.children[key]);
+                    }
+                    dispatch(setUserSubmitted(userSubmitted));
+                    $.get({
+                        url: 'https://oauth.reddit.com/user/Lennus123/upvoted', 
+                        beforeSend: xhr => {
+                            xhr.setRequestHeader('Authorization', 'bearer ' + sessionStorage.getItem('accessToken'))
+                        }
+                    }).then(response => {
+                        let userUpvoted = [];
+                        for(let key in response.data.children) {
+                            userUpvoted.push(response.data.children[key].data);
+                        }
+                        dispatch(setUserUpvoted(userUpvoted));
+                        $.get({
+                            url: 'https://oauth.reddit.com/user/Lennus123/downvoted', 
+                            beforeSend: xhr => {
+                                xhr.setRequestHeader('Authorization', 'bearer ' + sessionStorage.getItem('accessToken'))
+                            }
+                        }).then(response => {
+                            let userDownvoted = [];
+                            for(let key in response.data.children) {
+                                userDownvoted.push(response.data.children[key].data);
+                            }
+                            dispatch(setUserDownvoted(userDownvoted));
+                        })
+                    })
+                })
+            })
         })
     }
 }

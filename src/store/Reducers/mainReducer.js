@@ -7,7 +7,13 @@ const initialState = {
     isLoading: false,
     subUrl:  ' ',
     articleUrl: ' ',
-    hasToken: false
+    hasToken: false,
+    commentKarma: null,
+    linkKarma: null,
+    userComments: [],
+    userSubmitted: [],
+    userUpvoted: [],
+    userDownvoted: []
 }
 
 const isLoadingUser = (state, action) => {
@@ -55,6 +61,37 @@ const tokenSuccess = (state, action) => {
     })
 }
 
+const setKarma = (state, action) => {
+    return updateObject(state, {
+        commentKarma: action.commentKarma,
+        linkKarma: action.linkKarma
+    })
+}
+
+const setUserComments = (state, action) => {
+    return updateObject(state, {
+        userComments: action.userComments
+    })
+}
+
+const setUserSubmitted = (state, action) => {
+    return updateObject(state, {
+        userSubmitted: action.userSubmitted
+    })
+}
+
+const setUserUpvoted = (state, action) => {
+    return updateObject(state, {
+        userUpvoted: action.userUpvoted
+    })
+}
+
+const setUserDownvoted = (state, action) => {
+    return updateObject(state, {
+        userDownvoted: action.userDownvoted
+    })
+}
+
 const reducer = (state = initialState, action) => {
     switch(action.type) {
         case actionTypes.IS_LOADING_USER: return isLoadingUser(state, action);
@@ -64,6 +101,11 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SUB_URL_SUCCESS: return subUrlSuccess(state, action);
         case actionTypes.ARTICLE_URL_SUCCESS: return articleUrlSuccess(state, action);
         case actionTypes.TOKEN_SUCCESS: return tokenSuccess(state, action);
+        case actionTypes.SET_KARMA: return setKarma(state, action);
+        case actionTypes.SET_USER_COMMENTS: return setUserComments(state, action);
+        case actionTypes.SET_USER_SUBMITTED: return setUserSubmitted(state, action);
+        case actionTypes.SET_USER_UPVOTED: return setUserUpvoted(state, action);
+        case actionTypes.SET_USER_DOWNVOTED: return setUserDownvoted(state, action);
         default: return state;
     }
 }
