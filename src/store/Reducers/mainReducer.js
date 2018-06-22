@@ -13,13 +13,13 @@ const initialState = {
     userComments: [],
     userSubmitted: [],
     userUpvoted: [],
-    userDownvoted: []
+    userDownvoted: [],
+    user: ''
 }
 
 const isLoadingUser = (state, action) => {
     return updateObject(state, {
-        isLoading: true,
-        subLoading: true
+        isLoading: action.value
     })
 }
 
@@ -92,6 +92,12 @@ const setUserDownvoted = (state, action) => {
     })
 }
 
+const setUser = (state, action) => {
+    return updateObject(state, {
+        user: action.user
+    })
+}
+
 const reducer = (state = initialState, action) => {
     switch(action.type) {
         case actionTypes.IS_LOADING_USER: return isLoadingUser(state, action);
@@ -106,6 +112,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SET_USER_SUBMITTED: return setUserSubmitted(state, action);
         case actionTypes.SET_USER_UPVOTED: return setUserUpvoted(state, action);
         case actionTypes.SET_USER_DOWNVOTED: return setUserDownvoted(state, action);
+        case actionTypes.SET_USER: return setUser(state, action);
         default: return state;
     }
 }

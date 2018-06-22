@@ -10,6 +10,7 @@ export const SET_USER_COMMENTS = "SET_USER_COMMENTS";
 export const SET_USER_SUBMITTED = "SET_USER_SUBMITTED";
 export const SET_USER_UPVOTED = "SET_USER_UPVOTED";
 export const SET_USER_DOWNVOTED = "SET_USER_DOWNVOTED";
+export const SET_USER = "SET_USER";
 
 export const SET_LOADING = "SET_LOADING";
 export const SET_ARTICLE = "SET_ARTICLE";

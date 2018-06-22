@@ -25,7 +25,7 @@
 }
 
 .Info {
-    width: 90%;
+    width: 85%;
     margin-left: 20px;
     display: flex;
     flex-flow: column;
@@ -78,6 +78,20 @@
 
 .postInfo {
     display: flex;
+}
+
+.postInfo p {
+    margin-right: 5px;
+}
+
+.postInfo span a,
+.postInfo span p {
+    color: rgb(0, 167, 125);
+}
+
+.postInfo span a:hover,
+.postInfo span p:hover {
+    color: rgb(0, 194, 145);
 }
 
 .GildedInfo {

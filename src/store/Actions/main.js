@@ -6,9 +6,10 @@ let REDIRECT_URL = process.env.REACT_APP_REDIRECT_URL;
 let CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 let CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
 
-export const isLoadingUser = () => {
+export const isLoadingUser = (value) => {
     return {
-        type: actionTypes.IS_LOADING_USER
+        type: actionTypes.IS_LOADING_USER,
+        isLoading: value
     }
 }
 
@@ -88,6 +89,13 @@ export const setUserDownvoted = (userDownvoted) => {
     }
 }
 
+export const setUser = (user) => {
+    return {
+        type: actionTypes.SET_USER,
+        user: user
+    }
+}
+
 export const getAccessToken = () => {
     return dispatch => {
         let code = dispatch(getUrlParams('code'));
@@ -130,7 +138,7 @@ export const getUrlParams = (paramName) => {
 
 export const getUserInfo = () => {
     return (dispatch, getState) => {
-        dispatch(isLoadingUser());
+        dispatch(isLoadingUser(true));
         $.get({
             url: 'https://oauth.reddit.com/api/v1/me',
             beforeSend: xhr => {
@@ -138,26 +146,29 @@ export const getUserInfo = () => {
             }
         }).then(response => {
             dispatch(getFrontPage('hot', getState().main.subUrl));
+            dispatch(setUser(response.name));
             sessionStorage.setItem('username', response.name);
             dispatch(getSubreddits());
         }).catch(error => {
             console.log(error);
         })
-        dispatch(setUserInfo());
+        dispatch(setUserInfo(sessionStorage.getItem('username')));
     }
 }
 
-export const setUserInfo = () => {
+export const setUserInfo = (username) => {
     return dispatch => {
+        dispatch(isLoadingUser(true));
+        dispatch(setUser(username));
         $.get({
-            url: 'https://oauth.reddit.com/user/Lennus123/about',
+            url: 'https://oauth.reddit.com/user/' + username + '/about',
             beforeSend: xhr => {
                 xhr.setRequestHeader('Authorization', 'bearer ' + sessionStorage.getItem('accessToken'))
             }
         }).then(response => {
             dispatch(setKarma(response.data.comment_karma, response.data.link_karma));
             $.get({
-                url: 'https://oauth.reddit.com/user/Lennus123/overview',
+                url: 'https://oauth.reddit.com/user/' + username + '/overview?limit=100',
                 beforeSend: xhr => {
                     xhr.setRequestHeader('Authorization', 'bearer ' + sessionStorage.getItem('accessToken'))
                 }
@@ -168,7 +179,7 @@ export const setUserInfo = () => {
                 }
                 dispatch(setUserComments(userComments));
                 $.get({
-                    url: 'https://oauth.reddit.com/user/Lennus123/submitted', 
+                    url: 'https://oauth.reddit.com/user/' + username + '/submitted?limit=100', 
                     beforeSend: xhr => {
                         xhr.setRequestHeader('Authorization', 'bearer ' + sessionStorage.getItem('accessToken'))
                     }
@@ -179,7 +190,7 @@ export const setUserInfo = () => {
                     }
                     dispatch(setUserSubmitted(userSubmitted));
                     $.get({
-                        url: 'https://oauth.reddit.com/user/Lennus123/upvoted', 
+                        url: 'https://oauth.reddit.com/user/' + username + '/upvoted?limit=100', 
                         beforeSend: xhr => {
                             xhr.setRequestHeader('Authorization', 'bearer ' + sessionStorage.getItem('accessToken'))
                         }
@@ -190,7 +201,7 @@ export const setUserInfo = () => {
                         }
                         dispatch(setUserUpvoted(userUpvoted));
                         $.get({
-                            url: 'https://oauth.reddit.com/user/Lennus123/downvoted', 
+                            url: 'https://oauth.reddit.com/user/' + username + '/downvoted?limit=100', 
                             beforeSend: xhr => {
                                 xhr.setRequestHeader('Authorization', 'bearer ' + sessionStorage.getItem('accessToken'))
                             }
@@ -205,6 +216,7 @@ export const setUserInfo = () => {
                 })
             })
         })
+        dispatch(isLoadingUser(false));
     }
 }
 
@@ -269,6 +281,6 @@ export const setSubUrl = (event) => {
 
 export const setArticleUrl = (event) => {
     return dispatch => {
-        dispatch(articleUrlSuccess(event.target.title))
+        dispatch(articleUrlSuccess(event.target.title));
     }
 }

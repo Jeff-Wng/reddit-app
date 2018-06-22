@@ -1,4 +1,4 @@
-.Comments {
+.ProfileComments {
     display: flex;
     flex-flow: column;
     background-color: rgb(62, 62, 62);
@@ -7,10 +7,10 @@
     height: 100%;
     margin-bottom: 5px;
     font-weight: bold;
-    padding: 25px;
+    padding: 25px 25px 10px 25px;
 }
 
-.Comments a {
+.ProfileComments a {
     color: lightblue;
 }
 

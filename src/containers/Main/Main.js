@@ -42,9 +42,10 @@ class Main extends Component {
                domain={data.domain}
                gilded={data.gilded}
                postHint={data.post_hint}
+               isRedditDomain={data.is_reddit_media_domain}
                setSubUrl={this.props.setSubUrl}
                setUrl={this.setUrl}
-               isRedditDomain={data.is_reddit_media_domain} />
+               setUserInfo={this.props.setUserInfo} />
         })
         
         let content = null;
@@ -93,7 +94,8 @@ const mapDispatchToProps = dispatch => {
         setSubUrl: (event) => dispatch(actions.setSubUrl(event)),
         setArticleUrl: (event) => dispatch(actions.setArticleUrl(event)),
         tokenSuccess: () => dispatch(actions.tokenSuccess()),
-        getUserInfo: () => dispatch(actions.getUserInfo())
+        getUserInfo: () => dispatch(actions.getUserInfo()),
+        setUserInfo: (user) => dispatch(actions.setUserInfo(user))
     }
 }
 

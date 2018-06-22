@@ -28,6 +28,21 @@ class Navbar extends Component {
                 setSubUrl={this.props.setSubUrl}
                 showSubs={this.state.showSubs} />
         })
+
+        let sortPages = <React.Fragment>
+            <li onClick={this.props.sortFrontPage} id='best'>BEST</li>
+            <li onClick={this.props.sortFrontPage} id='hot'>HOT</li>
+            <li onClick={this.props.sortFrontPage} id='new'>NEW</li>
+            <li onClick={this.props.sortFrontPage} id='top'>TOP</li>
+        </React.Fragment>;
+        if(this.props.isProfile) {
+            sortPages = <React.Fragment>
+                    <li onClick={this.props.changeTab} id='comments'>Comments</li>
+                    <li onClick={this.props.changeTab} id='submitted'>Submitted</li>
+                    <li onClick={this.props.changeTab} id='upvoted'>Upvoted</li>
+                    <li onClick={this.props.changeTab} id='downvoted'>Downvoted</li>
+                </React.Fragment>
+        }
         
         return (
             <div className={classes.Navbar}>
@@ -38,15 +53,12 @@ class Navbar extends Component {
                             {subreddits}
                         </ul>
                     </div>
-                    <p>{sessionStorage.getItem('username')} ({this.props.linkKarma})</p>
+                    <Link to={'/user/' + sessionStorage.getItem('username')}><p>{sessionStorage.getItem('username')} ({this.props.linkKarma})</p></Link>
                 </div>
                 <div className={classes.RightContent}>
                     <Link to='/'><img src={logo} onClick={this.props.setSubUrl} id=' ' alt='Reddit logo'/></Link>
                     <ul>
-                        <li onClick={this.props.sortFrontPage} id='best'>BEST</li>
-                        <li onClick={this.props.sortFrontPage} id='hot'>HOT</li>
-                        <li onClick={this.props.sortFrontPage} id='new'>NEW</li>
-                        <li onClick={this.props.sortFrontPage} id='top'>TOP</li>
+                        {sortPages}
                     </ul>
                 </div>
             </div>

@@ -50,6 +50,10 @@
     border-bottom: 2px solid rgb(0, 167, 125);
 }
 
+.UserInfo a {
+    text-decoration: none;
+}
+
 .UserInfo p:hover {
     color: rgb(0, 167, 125);
     cursor: pointer;

@@ -44,7 +44,8 @@ class Article extends Component {
                 edited={data.edited}
                 stickied={data.stickied}
                 bodyHtml={data.body_html}
-                distinguished={data.distinguished} />
+                distinguished={data.distinguished}
+                setUserInfo={this.props.setUserInfo} />
         })
 
         return (
@@ -79,7 +80,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         setSubUrl: (event) => dispatch(actions.setSubUrl(event)),
-        getArticle: () => dispatch(actions.getArticle())
+        getArticle: () => dispatch(actions.getArticle()),
+        setUserInfo: (user) => dispatch(actions.setUserInfo(user))
     }
 }
 

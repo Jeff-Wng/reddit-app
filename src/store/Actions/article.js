@@ -32,7 +32,7 @@ export const getArticle = () => {
                 fetchedComments.push(response[1].data.children[key].data);
             }
             dispatch(setArticle(fetchedContent, fetchedComments));
-            dispatch(setLoading(false));
         })
+        dispatch(setLoading(false));
     }
 }
