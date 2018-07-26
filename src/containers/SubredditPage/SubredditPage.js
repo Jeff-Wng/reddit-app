@@ -9,6 +9,7 @@ import * as actions from '../../store/Actions/index';
 
 class SubredditPage extends Component {
     setUrl = (event) => {
+        // Retrieves the subreddit of the article and the article url from the front page
         this.props.setSubUrl(event);
         this.props.setArticleUrl(event);
     }
@@ -21,6 +22,8 @@ class SubredditPage extends Component {
                 title={data.title}
                 author={data.author}
                 sourceURL={data.url}
+                // Reddit has multiple tags for imgs, many of which does not include pictures
+                // Therefore these if statements are for displaying a placeholder image for the articles that does not have a thumbnail
                 img={data.thumbnail === "" || data.thumbnail === "spoiler" || data.thumbnail === 'default' || data.thumbnail === 'image' ||data.thumbnail === 'self' ? Nopreview : data.thumbnail}
                 subreddit={data.subreddit}
                 score={data.score}

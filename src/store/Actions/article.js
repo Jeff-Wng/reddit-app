@@ -9,6 +9,7 @@ export const setLoading = (value) =>{
     }
 }
 
+// passes comments and content or the article to state
 export const setArticle = (content, comments) => {
     return {
         type: actionTypes.SET_ARTICLE,
@@ -25,8 +26,6 @@ export const getArticle = () => {
         }).then(response => {
             let fetchedContent = [];
             let fetchedComments = [];
-            // console.log(response[0].data.children[0].data);
-            // console.log(response[1].data.children);
             fetchedContent.push(response[0].data.children[0].data);
             for(let key in response[1].data.children) {
                 fetchedComments.push(response[1].data.children[key].data);

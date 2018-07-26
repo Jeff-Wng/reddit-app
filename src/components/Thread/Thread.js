@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import Iframe from 'react-iframe';
 
 const thread = (props) => {
+    // The reddit api sends back a coded HTML, this function decodes it to normal HTML
     function decodeHtml(html) {
         var txt = document.createElement("textarea");
         txt.innerHTML = html;
@@ -16,6 +17,7 @@ const thread = (props) => {
         txt = txt.slice(21, txt.length - 20);
         post = <div dangerouslySetInnerHTML={{__html: decodeHtml(txt)}} />
     } else if (props.postHint === "rich:video" || props.postHint === "hosted:video" ) {
+        // Iframe is used to display videos and gifs
         post = <Iframe
             url={props.videoUrl}
             position='initial'

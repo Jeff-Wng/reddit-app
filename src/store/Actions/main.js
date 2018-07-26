@@ -98,12 +98,14 @@ export const setUser = (user) => {
 
 export const getAccessToken = () => {
     return dispatch => {
+        // Retrieve code from URL params after authentication from Reddit
         let code = dispatch(getUrlParams('code'));
         let data = {
             'grant_type': 'authorization_code',
             'code': code,
             'redirect_uri': REDIRECT_URL
         }
+        // Call to retrieve access token
         $.post({
             url: 'https://www.reddit.com/api/v1/access_token',
             beforeSend: xhr => {
@@ -112,6 +114,7 @@ export const getAccessToken = () => {
             data: data,
             success: response => {
                 if(response.access_token !== undefined) {
+                    // Access token and refresh token are stored in sessionStorage
                     sessionStorage.setItem('accessToken', response.access_token);
                     sessionStorage.setItem('refreshToken', response.refresh_token);
                 }
@@ -139,15 +142,18 @@ export const getUrlParams = (paramName) => {
 export const getUserInfo = () => {
     return (dispatch, getState) => {
         dispatch(isLoadingUser(true));
+        // Retrieves user info from API
         $.get({
             url: 'https://oauth.reddit.com/api/v1/me',
             beforeSend: xhr => {
                 xhr.setRequestHeader('Authorization', 'bearer ' + sessionStorage.getItem('accessToken'))
             }
         }).then(response => {
+            // Sets homepage user's front page, sorted by 'Hot'
             dispatch(getFrontPage('hot', getState().main.subUrl));
             dispatch(setUser(response.name));
             sessionStorage.setItem('username', response.name);
+            // Retrieves user subscribed subreddits 
             dispatch(getSubreddits());
         }).catch(error => {
             console.log(error);
@@ -156,6 +162,7 @@ export const getUserInfo = () => {
     }
 }
 
+// Retrieves user info for their profile page
 export const setUserInfo = (username) => {
     return dispatch => {
         dispatch(isLoadingUser(true));
@@ -220,9 +227,12 @@ export const setUserInfo = (username) => {
     }
 }
 
+// Retrieve front page
 export const getFrontPage = (sort, sub) => {
     return dispatch => {
         dispatch(isLoadingFrontPage());
+        // Sort is passed in from when user presses which type of sort they want
+        // Or 'Hot' by default from getUserInfo
         let url = "https://oauth.reddit.com/"+sort+"/?limit=100";
         if(sub !== ' ') {
             url = "https://oauth.reddit.com/r/"+sub+'/'+sort+"/?limit=100";

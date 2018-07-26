@@ -17,6 +17,8 @@ const initialState = {
     user: ''
 }
 
+
+// Everything under this commit sets Article, subreddits, etc
 const isLoadingUser = (state, action) => {
     return updateObject(state, {
         isLoading: action.value
@@ -61,6 +63,7 @@ const tokenSuccess = (state, action) => {
     })
 }
 
+// Everything below this commit sets the User's profile info to state
 const setKarma = (state, action) => {
     return updateObject(state, {
         commentKarma: action.commentKarma,

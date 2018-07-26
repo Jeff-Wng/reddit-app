@@ -13,6 +13,7 @@ const setLoading = (state, action) => {
     })
 }
 
+// Pass an article's content and comments to state
 const setArticle = (state, action) => {
     return updateObject(state, {
         content: action.content,
