@@ -1,5 +1,9 @@
 ## Reddit App (WORK IN PROGRESS)
-A recreation of Reddits using their public API. Browse through your front page and subreddits. This is a work in progress, more features will be added.
+A recreation of Reddits using their public API. Browse through your front page and your favorite subreddits. 
+
+This is a work in progress. Comments, user profiles and search functions are bebeing worked on.
+
+Mobile responsive layout not available yet.
 
 Try the app [here](https://jwong421.github.io/reddit-app)
 
